@@ -15,14 +15,17 @@ variable "redirectUri" {
   default = "http://localhost:3000/callback"
 }
 
+# Provider domain, NOT include https
 variable "domain" {
-  default = "aws-cognito.auth0.com"
+  default = "qiaoshi.auth0.com"
 }
 
+# OpenID Connect applcation clientID
 variable "clientId" {
-  default = "n4JmCUjAA4P7cEIEC3KI9yy8Kt4COqOt"
+  default = "TadE09KC8yZsg73HgsoFK7fNLNN5sVMt"
 }
 
+# The Identity Provider ARN created in IAM
 variable "openid_provider_arn" {
-  default = "arn:aws-cn:iam::057005827724:oidc-provider/aws-cognito.auth0.com"
+  default = "arn:aws-cn:iam::057005827724:oidc-provider/qiaoshi.auth0.com"
 }

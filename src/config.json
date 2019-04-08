@@ -1,6 +1,6 @@
 {
-  "domain": "aws-cognito.auth0.com",
-  "clientId": "n4JmCUjAA4P7cEIEC3KI9yy8Kt4COqOt",
+  "domain": "qiaoshi.auth0.com",
+  "clientId": "TadE09KC8yZsg73HgsoFK7fNLNN5sVMt",
   "redirectUri": "http://localhost:3000/callback",
   "region": "cn-north-1",
   "app": "cannon",
