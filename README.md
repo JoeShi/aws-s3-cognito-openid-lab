@@ -172,6 +172,8 @@ Step 6: 程序正常运行，登录后，选择文件，并上传.
 ## 参考资料
 
 [OpenID](https://docs.aws.amazon.com/cognito/latest/developerguide/open-id.html)
+
 [Auth0 配置](https://auth0.com/docs/integrations/integrating-auth0-amazon-cognito-mobile-apps)
+
 [JS S3 上传示例代码](https://docs.aws.amazon.com/cognito/latest/developerguide/getting-credentials.html#getting-credentials-1.javascript
 )
