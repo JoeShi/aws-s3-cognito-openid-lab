@@ -9,7 +9,7 @@ class Home extends Component {
   }
 
   getAWSCredentials() {
-    this.props.auth.upateAWSCredentials();
+    this.props.auth.updateAWSCredentials();
   }
 
   uploadImage() {
@@ -20,7 +20,7 @@ class Home extends Component {
 
     // const identityID = AWS.config.credentials.identityId;
 
-    const identityID = '5ca474736e2aaa1083453b00';
+    const identityID = AWS.config.credentials.data.SubjectFromWebIdentityToken;
 
     const file = files[0];
     const fileName = file.name;
@@ -28,6 +28,7 @@ class Home extends Component {
 
     const s3 = new AWS.S3({
       params: {
+        region: 'us-west-2',
         Bucket: config.bucket,
         credentials: AWS.config.credentials
       }

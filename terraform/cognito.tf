@@ -9,8 +9,7 @@
 resource "aws_cognito_identity_pool" "identity_pool" {
   identity_pool_name = "identity_${random_string.suffix.result}"
   allow_unauthenticated_identities = false
-  openid_connect_provider_arns = [
-    var.openid_provider_arn]
+  openid_connect_provider_arns = [var.openid_provider_arn]
 }
 
 resource "aws_iam_role" "cognito_unauthenticated_role" {
@@ -22,15 +21,12 @@ resource "aws_iam_role" "cognito_unauthenticated_role" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "cognito-identity.amazonaws.com"
+        "Federated": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/${var.domain}"
       },
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {
-          "cognito-identity.amazonaws.com.cn:aud": "${aws_cognito_identity_pool.identity_pool.id}"
-        },
-        "ForAnyValue:StringLike": {
-          "cognito-identity.amazonaws.com.cn:amr": "unauthenticated"
+          "${var.domain}:aud": "${var.clientId}"
         }
       }
     }
@@ -48,9 +44,14 @@ resource "aws_iam_role" "cognito_authenticated_role" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "cognito-identity.amazonaws.com"
+        "Federated": "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/${var.domain}"
       },
-      "Action": "sts:AssumeRoleWithWebIdentity"
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "${var.domain}:aud": "${var.clientId}"
+        }
+      }
     }
   ]
 }
@@ -68,12 +69,12 @@ resource "aws_iam_role_policy" "s3_access_policy" {
             "Effect": "Allow",
             "Action": "s3:ListBucket",
             "Resource": [
-                "arn:aws-cn:s3:::${aws_s3_bucket.s3.bucket}"
+                "arn:aws:s3:::${aws_s3_bucket.s3.bucket}"
             ],
             "Condition": {
                 "StringLike": {
                     "s3:prefix": [
-                        "${var.app}/$${aws-cognito.auth0.com:sub}"
+                        "${var.app}/$${${var.domain}:sub}"
                     ]
                 }
             }
@@ -87,8 +88,8 @@ resource "aws_iam_role_policy" "s3_access_policy" {
                 "s3:DeleteObject"
             ],
             "Resource": [
-                "arn:aws-cn:s3:::${aws_s3_bucket.s3.bucket}/${var.app}/$${aws-cognito.auth0.com:sub}",
-                "arn:aws-cn:s3:::${aws_s3_bucket.s3.bucket}/${var.app}/$${aws-cognito.auth0.com:sub}/*"
+                "arn:aws:s3:::${aws_s3_bucket.s3.bucket}/${var.app}/$${${var.domain}:sub}",
+                "arn:aws:s3:::${aws_s3_bucket.s3.bucket}/${var.app}/$${${var.domain}:sub}/*"
             ]
         }
     ]

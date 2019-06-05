@@ -3,12 +3,12 @@ variable "app" {
 }
 
 variable "region" {
-  default = "cn-north-1"
+  default = "us-west-2"
 }
 
 # Your local AWS credentials profile
 variable "profile" {
-  default = "zhy"
+  default = "default"
 }
 
 variable "redirectUri" {
@@ -17,7 +17,7 @@ variable "redirectUri" {
 
 # Provider domain, NOT include https
 variable "domain" {
-  default = "aws-cognito.auth0.com"
+  default = "aws-cognito.auth0.com/"
 }
 
 # OpenID Connect applcation clientID
@@ -27,5 +27,5 @@ variable "clientId" {
 
 # The Identity Provider ARN created in IAM
 variable "openid_provider_arn" {
-  default = "arn:aws-cn:iam::057005827724:oidc-provider/aws-cognito.auth0.com"
+  default = "arn:aws:iam::178770047227:oidc-provider/aws-cognito.auth0.com/"
 }
