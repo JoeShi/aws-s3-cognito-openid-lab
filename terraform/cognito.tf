@@ -73,7 +73,7 @@ resource "aws_iam_role_policy" "s3_access_policy" {
             "Condition": {
                 "StringLike": {
                     "s3:prefix": [
-                        "cognito/${var.app}/$${cognito-identity.amazonaws.com:sub}"
+                        "${var.app}/$${aws-cognito.auth0.com:sub}"
                     ]
                 }
             }
@@ -87,8 +87,8 @@ resource "aws_iam_role_policy" "s3_access_policy" {
                 "s3:DeleteObject"
             ],
             "Resource": [
-                "arn:aws-cn:s3:::${aws_s3_bucket.s3.bucket}/cognito/${var.app}/$${cognito-identity.amazonaws.com:sub}",
-                "arn:aws-cn:s3:::${aws_s3_bucket.s3.bucket}/cognito/${var.app}/$${cognito-identity.amazonaws.com:sub}/*"
+                "arn:aws-cn:s3:::${aws_s3_bucket.s3.bucket}/${var.app}/$${aws-cognito.auth0.com:sub}",
+                "arn:aws-cn:s3:::${aws_s3_bucket.s3.bucket}/${var.app}/$${aws-cognito.auth0.com:sub}/*"
             ]
         }
     ]

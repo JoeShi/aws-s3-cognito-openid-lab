@@ -18,13 +18,13 @@ class Home extends Component {
       return alert('Please choose a file to upload first.');
     }
 
-    const identityID = AWS.config.credentials.identityId;
+    // const identityID = AWS.config.credentials.identityId;
 
-    // const identityID = 'auth0|5ca474736e2aaa1083453b00';
+    const identityID = '5ca474736e2aaa1083453b00';
 
     const file = files[0];
     const fileName = file.name;
-    const photoKey = `cognito/${config.app}/${identityID}/${fileName}`;
+    const photoKey = `${config.app}/${identityID}/${fileName}`;
 
     const s3 = new AWS.S3({
       params: {
