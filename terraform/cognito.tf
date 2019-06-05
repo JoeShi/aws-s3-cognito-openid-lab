@@ -9,7 +9,8 @@
 resource "aws_cognito_identity_pool" "identity_pool" {
   identity_pool_name = "identity_${random_string.suffix.result}"
   allow_unauthenticated_identities = false
-  openid_connect_provider_arns = ["${var.openid_provider_arn}"]
+  openid_connect_provider_arns = [
+    var.openid_provider_arn]
 }
 
 resource "aws_iam_role" "cognito_unauthenticated_role" {
@@ -57,7 +58,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "s3_access_policy" {
-  role = "${aws_iam_role.cognito_authenticated_role.id}"
+  role = aws_iam_role.cognito_authenticated_role.id
   policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -96,10 +97,10 @@ EOF
 }
 
 resource "aws_cognito_identity_pool_roles_attachment" "identity_roles_attachment" {
-  identity_pool_id = "${aws_cognito_identity_pool.identity_pool.id}"
-  roles {
-    authenticated = "${aws_iam_role.cognito_authenticated_role.arn}"
-    unauthenticated = "${aws_iam_role.cognito_unauthenticated_role.arn}"
+  identity_pool_id = aws_cognito_identity_pool.identity_pool.id
+  roles = {
+    authenticated = aws_iam_role.cognito_authenticated_role.arn
+    unauthenticated = aws_iam_role.cognito_unauthenticated_role.arn
   }
 }
 

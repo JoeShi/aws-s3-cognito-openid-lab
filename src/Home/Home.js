@@ -20,6 +20,8 @@ class Home extends Component {
 
     const identityID = AWS.config.credentials.identityId;
 
+    // const identityID = 'auth0|5ca474736e2aaa1083453b00';
+
     const file = files[0];
     const fileName = file.name;
     const photoKey = `cognito/${config.app}/${identityID}/${fileName}`;
