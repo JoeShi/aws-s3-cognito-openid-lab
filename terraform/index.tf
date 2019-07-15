@@ -1,16 +1,6 @@
-terraform {
-  backend "s3" {
-    bucket = "tf-state"
-    key = "aws-s3-cognito-lab/terraform.tfstate"
-    dynamodb_table = "tf-state"
-    region = "cn-northwest-1"
-    profile = "zhy"
-  }
-}
-
 provider "aws" {
-  region = "${var.region}"
-  profile = "${var.profile}"
+  region = var.region
+  profile = var.profile
 }
 
 resource "random_string" "suffix" {
@@ -21,29 +11,25 @@ resource "random_string" "suffix" {
 }
 
 output "domain" {
-  value = "${var.domain}"
+  value = var.domain
 }
 
 output "clientId" {
-  value = "${var.clientId}"
-}
-
-output "redirectUri" {
-  value = "${var.redirectUri}"
+  value = var.clientId
 }
 
 output "region" {
-  value = "${var.region}"
+  value = var.region
 }
 
 output "app" {
-  value = "${var.app}"
+  value = var.app
 }
 
 output "identityPoolId" {
-  value = "${aws_cognito_identity_pool.identity_pool.id}"
+  value = aws_cognito_identity_pool.identity_pool.id
 }
 
 output "bucket" {
-  value = "${aws_s3_bucket.s3.bucket}"
+  value = aws_s3_bucket.s3.bucket
 }

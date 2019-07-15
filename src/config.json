@@ -1,9 +1,8 @@
 {
   "domain": "aws-cognito.auth0.com",
   "clientId": "n4JmCUjAA4P7cEIEC3KI9yy8Kt4COqOt",
-  "redirectUri": "http://localhost:3000/callback",
   "region": "cn-north-1",
-  "app": "cannon",
-  "identityPoolId": "cn-north-1:710697cd-8c77-473d-a4bb-bdef4099cff3",
-  "bucket": "user-content-vevkskzi"
+  "app": "s3-cognito-demo",
+  "identityPoolId": "cn-north-1:953e3750-f501-4785-b868-113ea43c1106",
+  "bucket": "user-content-vlyyckgq"
 }

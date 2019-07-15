@@ -1,11 +1,5 @@
 # Create Cognito and associate IAM Roles
 
-//resource "aws_iam_openid_connect_provider" "oidc1" {
-//  client_id_list = ["${var.oidc_audience}"]
-//  thumbprint_list = []
-//  url = "${var.oidc_url}"
-//}
-
 resource "aws_cognito_identity_pool" "identity_pool" {
   identity_pool_name = "identity_${random_string.suffix.result}"
   allow_unauthenticated_identities = false

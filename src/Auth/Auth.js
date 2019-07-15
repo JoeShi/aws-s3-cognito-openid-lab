@@ -11,7 +11,7 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: config.domain,
     clientID: config.clientId,
-    redirectUri: config.redirectUri,
+    redirectUri: 'http://localhost:3000/callback',
     responseType: 'token id_token',
     scope: 'openid'
   });
