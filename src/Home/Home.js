@@ -9,7 +9,7 @@ class Home extends Component {
   }
 
   getAWSCredentials() {
-    this.props.auth.upateAWSCredentials();
+    this.props.auth.updateAWSCredentials();
   }
 
   uploadImage() {
@@ -19,8 +19,6 @@ class Home extends Component {
     }
 
     const identityID = AWS.config.credentials.identityId;
-
-    // const identityID = 'auth0|5ca474736e2aaa1083453b00';
 
     const file = files[0];
     const fileName = file.name;
@@ -70,16 +68,16 @@ class Home extends Component {
           )
         }
 
-        <p style={{ top: '10px'}}>Step 2: Update AWS Credentials</p>
+        <p style={{ top: '10px'}}>Step 2: Get AWS Credentials, wait for the popup window</p>
         <Button bsStyle="primary" className="btn-margin"
                 onClick={this.getAWSCredentials.bind(this)}>
-          Update AWS Credentials
+          Get AWS Credentials
         </Button>
 
         <p style={{ top: '10px'}}>Step 3: Choose File</p>
         <input id="photoupload" type="file" accept="image/*" style={{ margin: '20px'}}/>
 
-        <p style={{ top: '10px'}}>Step 4: Upload File</p>
+        <p style={{ top: '10px'}}>Step 4: Upload file, wait for the popup window</p>
         <Button bsStyle="primary" className="btn-margin"
                 onClick={this.uploadImage.bind(this)}>
           Upload

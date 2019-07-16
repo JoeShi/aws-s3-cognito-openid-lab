@@ -166,14 +166,14 @@ Authenticated Role 所具有的 Policy 配置如下, 将其中的 **<s3-bucket-n
 
 步骤 0: 注册 Auth0 帐号，并添加 Application. 详细步骤请查看 [Auth0 操作手册](https://auth0.com/docs/dashboard/guides/applications/register-app-spa)。
 请注意，此处不强制使用 Auth0, 只要符合 OIDC 规范即可。记录下 Application 的 **Domain** 和 **Client ID**。
-在 **Settings -> Allowed Callback URLs** 中输入 `http://localhost:3000/callback`。
+在 **Settings -> Allowed Callback URLs** 中输入 `http://localhost:3000/callback`
 
 步骤 1: 登陆 AWS 控制台，在 [IAM Identity Provider](https://console.amazonaws.cn/iam/home#/providers) 中点击 **Create Provider**,
 
 步骤 2: 在 **Provider Type** 中选择 **OpenID Connect**; 在 **Provider URL** 中输入 Auth0 的 **Domain** 字段
-(必须是https://开头); 在 **Audience** 中输入 Auth0 的 **clientID**。
+(必须是https://开头); 在 **Audience** 中输入 Auth0 的 **clientID**
 
-步骤 3: 在 **terraform/variables.tf** 中修改变量的值。参数说明请参考注释。
+步骤 3: 在 **terraform/variables.tf** 中修改变量的值。参数说明请参考注释
 
 步骤 4: 通过 Terraform 自动化部署 Cognito 及相关 IAM Role, IAM Policy
 ```shell
@@ -182,7 +182,7 @@ terraform init
 terraform apply
 ```
 
-步骤 5: 将 terraform 的输入 拷贝到 `src/config.json` 中，并保存配置文件。 
+步骤 5: 将 terraform 的输入 拷贝到 `src/config.json` 中，并保存配置文件
 
 步骤 6: 在项目根目录下安装 Web 依赖, 并运行前端程序 
 ```shell
@@ -191,16 +191,48 @@ yarn install
 yarn start
 ```
 
-Step 7: 程序正常运行，登录后，选择文件，并上传.
+Step 7: 程序正常运行，登录后，选择文件，并上传
 
 > 如果该系统部署在 AWS Global Region, 请务必将 IAM Policy 中的 `aws-cn` 改成 `aws`, 
 > Cognito 的 endpoint 修改为 https://cognito-identity.{region}.amazonaws.com/
 
 
+## 运行 Demo
+
+步骤1: 点击页面上的 **Log In**  按钮，跳转到 Auth0 的认证页面，输入用户名密码。
+等待页面跳转回 Web App, 显示已经登陆，页面如下:
+
+![](doc/screen1.png)
+
+步骤2: 点击 **Get AWS Credentials** 按钮。等待弹出对话框
+
+![](doc/screen2.png)
+
+步骤3: 点击 **Choose file** 选择要上传的文件，此处只支持图片
+
+步骤4: 点击 **Upload** 按钮，等待文件上传成功，并弹出对话框
+
+步骤5: 查看 S3 Bucket, 发现 S3 中图片的 keyname 包含 **Cognito Identity ID**
+
+![](doc/screen3.png)
+
+至此，实验成功。想知道客户端的实现方式可查看, `src` 文件夹下的前端代码。
+demo 程序的主要逻辑代码在 `src/Auth.js` 和 `src/Home.js`。
+
 该解决方案也支持符合使用 SAML 标准的 Auth 系统。详细内容请
 参考 [SAML Identity Providers](https://docs.aws.amazon.com/cognito/latest/developerguide/saml-identity-provider.html)
 
-## 参考资料
+
+## 如何销毁资源
+
+步骤1: 删除 S3 内的文件
+
+步骤2: 在 `terraform` 目录下运行 `terraform destroy`
+
+步骤3：在 [IAM Identity Provider](https://console.amazonaws.cn/iam/home#/providers) 
+中删除之前创建的 **Identity Provider**
+
+## 参考文档
 
 [OpenID](https://docs.aws.amazon.com/cognito/latest/developerguide/open-id.html)
 

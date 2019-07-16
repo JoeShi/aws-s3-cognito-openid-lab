@@ -101,18 +101,25 @@ export default class Auth {
   /**
    * Update AWS Credentials
    */
-  upateAWSCredentials() {
+  updateAWSCredentials() {
     const token = this.getIdToken(); // the OpenID Connect ID Token
 
-    AWS.config.update({
-      region: config.region,
-      credentials: new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: config.identityPoolId,
-        Logins: {
-          [config.domain]: token
-        }
-      })
+    AWS.config.update({region: config.region});
+
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: config.identityPoolId,
+      Logins: {
+        [config.domain]: token
+      }
     });
+
+    AWS.config.getCredentials(err => {
+      if (err) { return console.error(err) }
+
+      alert('get credentials successfully!');
+
+    })
+
   }
 
 }
