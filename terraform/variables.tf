@@ -8,7 +8,8 @@ variable "region" {
   default = "cn-north-1"
 }
 
-# Your local AWS credentials profile，如果只有一个，请改成 default
+# 本地 AWS credentials profile，默认为default，您本地profile可能有多个
+# 请主要不要将 AWS China Region 和 AWS Global Region 的 credentials 混淆
 variable "profile" {
   default = "zhy"
 }
