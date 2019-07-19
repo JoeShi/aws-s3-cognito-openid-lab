@@ -157,6 +157,8 @@ Authenticated Role 所具有的 Policy 配置如下, 将其中的 `<s3-bucket-na
 
 ## Demo 快速部署
 
+[点击此处访问 GitHub Repo](https://github.com/lab798/aws-s3-cognito-openid-lab)
+
 本文使用 [Terraform](https://www.terraform.io/) 作为自动化资源创建工具，Terraform IT 是一款基础架构自动化编排工具，
 如尚未安装，请按照[文档](https://learn.hashicorp.com/terraform/getting-started/install)下载并安装。
 
